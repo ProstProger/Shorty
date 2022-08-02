@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New link</title>
+</head>
+<body>
+<!--<form th:method="POST" th:action="@{/links}" th:object="${link}">-->
+<!--    <label for="longLink">Enter long link: </label>-->
+<!--    <input type="text" th:field="*{longLink}" id="longLink"/>-->
+<!--    <br/>-->
+<!--    <br/>-->
+<!--    <label for="shortLink">Enter short link: </label>-->
+<!--    <input type="text" th:field="*{shortLink}" id="shortLink"/>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create short link">-->
+<!--</form>-->
+
+<!--<form th:method="PATCH" th:action="@{/links/{id}(id=${link.getId()})}" th:object="${link}">-->
+<form th:method="POST" th:action="@{/links}" th:object="${link}">
+    <label for="longLink">Enter long link: </label>
+    <input type="text" th:field="*{longLink}" id="longLink"/>
+    <br/>
+    <br/>
+
+    <input type="submit" value="Cut LINK!">
+</form>
+
+
+</body>
+</html>
