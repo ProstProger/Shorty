@@ -38,30 +38,31 @@ public class LinksController {
 //        return "links/show";
 //    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/redirect")
     public String redirect(@ModelAttribute("link") Link link, Model model) {
         //  Получим один линк по id из DAO и передадим на отображение в представление
         model.addAttribute("link", linkDAO.redirect(link.getId()));
-        return "redirect:/links/new";// + link.getLongLink();
+        return "redirect:/links/";// + link.getLongLink();
     }
 
     @GetMapping("/new")
-    public String newLink(Model model){
+    public String newLink(Model model) {
         model.addAttribute("link", new Link());
         return "links/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("link") Link link){
+    public String create(@ModelAttribute("link") Link link) {
         linkDAO.save(link);
         return "redirect:/links";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id){
-        model.addAttribute("link", linkDAO.show(id));
-            return "links/edit";
-    }
+//    @GetMapping("/{id}/edit")
+//    public String edit(Model model, @PathVariable("id") int id) {
+//        model.addAttribute("link", linkDAO.show(id));
+//        return "links/edit";
+//    }
+
 
 //    @PostMapping("/new")
 //    public String cut(@ModelAttribute("link") Link link, @PathVariable("id") int id){
@@ -78,6 +79,14 @@ public class LinksController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         linkDAO.delete(id);
+//        linkDAO.copyToClipBoard(id);
+        return "redirect:/links";
+    }
+
+    @GetMapping("/{id}/copy")
+    public String copyBuffer(@PathVariable("id") int id) {
+        linkDAO.copyToClipBoard(id);
+//        linkDAO.copyToClipBoard(link.getShortLink());
         return "redirect:/links";
     }
 

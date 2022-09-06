@@ -1,5 +1,8 @@
 package ru.prost.shorty.links;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.time.LocalDate;
 
 public class Link {
@@ -49,4 +52,6 @@ public class Link {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+
 }

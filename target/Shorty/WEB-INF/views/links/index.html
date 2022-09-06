@@ -32,11 +32,12 @@
                    th:text="${link.getId()}">user</a>
             </th>
             <th>
-                <a th:href="${link.getLongLink()}"
-                   th:text="${link.getLongLink()}">user</a>
+                <!--                <a th:href="${link.getLongLink()}"-->
+                <a th:text="${link.getLongLink()}">user</a>
             </th>
             <th>
                 <a th:href="${link.getLongLink()}"
+                   th:method="GET" th:action="@{/links/{id}/copy(id=${link.getId()})}"
                    th:text="${link.getShortLink()}">user</a>
             </th>
             <th>
@@ -45,6 +46,13 @@
             <th>
                 <form th:method="DELETE" th:action="@{/links/{id}(id=${link.getId()})}">
                     <input type="submit" value="Delete"/>
+                </form>
+            </th>
+            <th>
+                <form th:method="GET" th:action="@{/links/{id}/copy(id=${link.getId()})}">
+                    <!--                    .copyBuffer(link)})}">-->
+                    <!--                    <a th:href="@{/links/{id}/edit(id=${link.getId()})}">Edit</a>-->
+                    <input type="submit" value="Copy"/>
                 </form>
             </th>
         </tr>

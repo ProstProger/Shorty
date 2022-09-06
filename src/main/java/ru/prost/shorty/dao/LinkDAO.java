@@ -3,13 +3,15 @@ package ru.prost.shorty.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import ru.prost.shorty.links.CreatorShortLink;
+import ru.prost.shorty.links.MethodForLinks;
 import ru.prost.shorty.links.Link;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.time.LocalDate;
 import java.util.List;
-
 
 
 @Component
@@ -36,8 +38,16 @@ public class LinkDAO {
     }
 
     public void save(Link link) {
-        String shortLink = CreatorShortLink.cutLink(link.getLongLink());
+        String shortLink = MethodForLinks.cutLink(link.getLongLink());
         jdbcTemplate.update("INSERT INTO users (longLink, shortLink, date) VALUES(?, ?, ?)", link.getLongLink(), shortLink, LocalDate.now());
+    }
+
+    public void copyToClipBoard(int id) {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Link link = jdbcTemplate.query("SELECT * FROM users WHERE id=?", new BeanPropertyRowMapper<>(Link.class), id).
+                stream().findAny().orElse(null);
+        StringSelection stringSelection = new StringSelection(link.getShortLink());
+        clipboard.setContents(stringSelection, null);
     }
 
 //    public void update(int id, Link updatedLink) {
@@ -46,7 +56,6 @@ public class LinkDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM users WHERE id=?", id);
-
     }
 
 //    public void cut(int id, Link uplongLink){
